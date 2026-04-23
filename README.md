@@ -66,6 +66,25 @@ SQL (MySQL) was used to:
 
 
 ---
+## Sample SQL Queries
+
+-- duplicate customer id --
+
+select customer_id, 
+row_number() over(partition by customer_id) as rn
+from customers_raw;
+
+with customer_id_duplicate_count_cte as
+(
+select customer_id, 
+row_number() over(partition by customer_id) as rn
+from customers_raw
+)
+select count(customer_id) 
+from customer_id_duplicate_count_cte 
+where rn >1 ;
+
+
 
 ## Excel Dashboard
 An interactive dashboard was created using **Excel (Web version)** to visualize:
