@@ -84,7 +84,16 @@ select count(customer_id)
 from customer_id_duplicate_count_cte 
 where rn >1 ;
 
+-- invalid cust id--
 
+select count(o.customer_id) from orders_raw as o 
+left join customers_raw as c  
+on o.customer_id = c.customer_id
+where c.customer_id is null and
+o.customer_id is not null and o.customer_id!='';
+
+
+---
 
 ## Excel Dashboard
 An interactive dashboard was created using **Excel (Web version)** to visualize:
